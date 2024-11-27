@@ -4,7 +4,37 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  // Funzione che genera la lista delle task non completate
+  // * Funzione che genera status badge
+  const genStatusBadge = (status) => {
+    // backlog
+    if (status == "backlog") {
+      return (
+        <div>
+          <span className="badge text-bg-danger mx-3">{status}</span>
+        </div>
+      );
+    }
+
+    // in progress
+    if (status == "in_progress") {
+      return (
+        <div>
+          <span className="badge text-bg-warning mx-3">{status}</span>
+        </div>
+      );
+    }
+
+    // completed
+    if (status == "completed") {
+      return (
+        <div>
+          <span className="badge text-bg-success mx-3">{status}</span>
+        </div>
+      );
+    }
+  };
+
+  // * Funzione che genera la lista delle task non completate
   const genListTodoTask = () => {
     const todoTasks = tasks.filter((task) => task.state != "completed");
     return (
@@ -26,11 +56,7 @@ function App() {
               </div>
 
               {/* list element status */}
-              <div>
-                <span className="badge text-bg-warning rounded mx-3">
-                  {task.state}
-                </span>
-              </div>
+              {genStatusBadge(task.state)}
             </li>
           ))}
         </ul>
@@ -38,7 +64,7 @@ function App() {
     );
   };
 
-  // Funzione che genera la lista delle task completate
+  // * Funzione che genera la lista delle task completate
   const genListCompletedTask = () => {
     const todoTasks = tasks.filter((task) => task.state == "completed");
     return (
@@ -60,11 +86,7 @@ function App() {
               </div>
 
               {/* list element status */}
-              <div>
-                <span className="badge text-bg-success rounded mx-3">
-                  {task.state}
-                </span>
-              </div>
+              {genStatusBadge(task.state)}
             </li>
           ))}
         </ul>
