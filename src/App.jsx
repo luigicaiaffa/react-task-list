@@ -34,9 +34,31 @@ function App() {
     }
   };
 
+  // * Funzione che genera una lista di task
+  const genTaskList = (taskList) => {
+    return (
+      <ul className="list-group list-group-flush">
+        {taskList.map((task) => (
+          <li key={task.id} className="list-group-item d-flex px-0">
+            {/* list element data */}
+            <div>
+              <div className="fw-bold">{task.title}</div>
+              <div>Priority: {task.priority}</div>
+              <div>Est. Time: {task.estimatedTime}</div>
+            </div>
+
+            {/* list element status */}
+            {genStatusBadge(task.state)}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   // * Funzione che genera la lista delle task non completate
-  const genListTodoTask = () => {
+  const todoTaskList = () => {
     const todoTasks = tasks.filter((task) => task.state != "completed");
+
     return (
       <div>
         {/* active tasks number */}
@@ -45,51 +67,24 @@ function App() {
         </h4>
 
         {/* todo tasks list */}
-        <ul className="list-group list-group-flush">
-          {todoTasks.map((task) => (
-            <li key={task.id} className="list-group-item d-flex px-0">
-              {/* list element data */}
-              <div>
-                <div className="fw-bold">{task.title}</div>
-                <div>Priority: {task.priority}</div>
-                <div>Est. Time: {task.estimatedTime}</div>
-              </div>
-
-              {/* list element status */}
-              {genStatusBadge(task.state)}
-            </li>
-          ))}
-        </ul>
+        {genTaskList(todoTasks)}
       </div>
     );
   };
 
   // * Funzione che genera la lista delle task completate
-  const genListCompletedTask = () => {
-    const todoTasks = tasks.filter((task) => task.state == "completed");
+  const completedTaskList = () => {
+    const completedTasks = tasks.filter((task) => task.state == "completed");
+
     return (
       <div>
         {/* completed tasks number */}
         <h4 className="py-3 fw-bold">
-          Completed Tasks &#40;{todoTasks.length}&#41;
+          Completed Tasks &#40;{completedTasks.length}&#41;
         </h4>
 
         {/* completed tasks list */}
-        <ul className="list-group list-group-flush">
-          {todoTasks.map((task) => (
-            <li key={task.id} className="list-group-item d-flex px-0">
-              {/* list element data */}
-              <div>
-                <div className="fw-bold">{task.title}</div>
-                <div>Priority: {task.priority}</div>
-                <div>Est. Time: {task.estimatedTime}</div>
-              </div>
-
-              {/* list element status */}
-              {genStatusBadge(task.state)}
-            </li>
-          ))}
-        </ul>
+        {genTaskList(completedTasks)}
       </div>
     );
   };
@@ -108,12 +103,12 @@ function App() {
       <main>
         <div className="container">
           {/* todo tasks list */}
-          {genListTodoTask()}
+          {todoTaskList()}
 
           <hr />
 
           {/* completed tasks list */}
-          {genListCompletedTask()}
+          {completedTaskList()}
         </div>
       </main>
     </>
