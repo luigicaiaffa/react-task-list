@@ -4,17 +4,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  // Funzione che genera la tasklist delle task non completate
+  // Funzione che genera la lista delle task non completate
   const genListTodoTask = () => {
     const todoTasks = tasks.filter((task) => task.state != "completed");
     return (
       <div>
-        {/* current task number */}
+        {/* active tasks number */}
         <h4 className="py-3 fw-bold">
           Current Tasks &#40;{todoTasks.length}&#41;
         </h4>
 
-        {/* todo tasklist */}
+        {/* todo tasks list */}
         <ul className="list-group list-group-flush">
           {todoTasks.map((task) => (
             <li key={task.id} className="list-group-item d-flex px-0">
@@ -38,17 +38,17 @@ function App() {
     );
   };
 
-  // Funzione che genera la tasklist delle task non completate
+  // Funzione che genera la lista delle task completate
   const genListCompletedTask = () => {
     const todoTasks = tasks.filter((task) => task.state == "completed");
     return (
       <div>
-        {/* current task number */}
+        {/* completed tasks number */}
         <h4 className="py-3 fw-bold">
           Completed Tasks &#40;{todoTasks.length}&#41;
         </h4>
 
-        {/* todo tasklist */}
+        {/* completed tasks list */}
         <ul className="list-group list-group-flush">
           {todoTasks.map((task) => (
             <li key={task.id} className="list-group-item d-flex px-0">
