@@ -5,10 +5,10 @@ import "./App.css";
 
 function App() {
   // Funzione che genera la tasklist delle task non completate
-  const genTodoTaskList = () => {
+  const genListTodoTask = () => {
     const todoTasks = tasks.filter((task) => task.state != "completed");
     return (
-      <div className="container">
+      <div>
         {/* current task number */}
         <h4 className="py-3 fw-bold">
           Current Tasks &#40;{todoTasks.length}&#41;
@@ -38,6 +38,40 @@ function App() {
     );
   };
 
+  // Funzione che genera la tasklist delle task non completate
+  const genListCompletedTask = () => {
+    const todoTasks = tasks.filter((task) => task.state == "completed");
+    return (
+      <div>
+        {/* current task number */}
+        <h4 className="py-3 fw-bold">
+          Completed Tasks &#40;{todoTasks.length}&#41;
+        </h4>
+
+        {/* todo tasklist */}
+        <ul className="list-group list-group-flush">
+          {todoTasks.map((task) => (
+            <li key={task.id} className="list-group-item d-flex px-0">
+              {/* list element data */}
+              <div>
+                <div className="fw-bold">{task.title}</div>
+                <div>Priority: {task.priority}</div>
+                <div>Est. Time: {task.estimatedTime}</div>
+              </div>
+
+              {/* list element status */}
+              <div>
+                <span className="badge text-bg-success rounded mx-3">
+                  {task.state}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   // # Output
   return (
     <>
@@ -50,8 +84,15 @@ function App() {
 
       {/* Main */}
       <main>
-        {/* todo tasklist */}
-        {genTodoTaskList()}
+        <div className="container">
+          {/* todo tasks list */}
+          {genListTodoTask()}
+
+          <hr />
+
+          {/* completed tasks list */}
+          {genListCompletedTask()}
+        </div>
       </main>
     </>
   );
