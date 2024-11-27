@@ -1,13 +1,58 @@
 import { useState } from "react";
 import { tasks } from "./data/tasks";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
+  // Funzione che genera la tasklist delle task non completate
+  const genTodoTaskList = () => {
+    const todoTasks = tasks.filter((task) => task.state != "completed");
+    return (
+      <div className="container">
+        {/* current task number */}
+        <h4 className="py-3 fw-bold">
+          Current Tasks &#40;{todoTasks.length}&#41;
+        </h4>
+
+        {/* todo tasklist */}
+        <ul className="list-group list-group-flush">
+          {todoTasks.map((task) => (
+            <li key={task.id} className="list-group-item d-flex px-0">
+              {/* list element data */}
+              <div>
+                <div className="fw-bold">{task.title}</div>
+                <div>Priority: {task.priority}</div>
+                <div>Est. Time: {task.estimatedTime}</div>
+              </div>
+
+              {/* list element status */}
+              <div>
+                <span className="badge text-bg-warning rounded mx-3">
+                  {task.state}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+  // # Output
   return (
     <>
-      <header className="header">
-        <h1>Task Manager</h1>
+      {/* Header */}
+      <header className="p-3 header">
+        <div className="container">
+          <h1 className="fw-bold">Task Manager</h1>
+        </div>
       </header>
+
+      {/* Main */}
+      <main>
+        {/* todo tasklist */}
+        {genTodoTaskList()}
+      </main>
     </>
   );
 }
